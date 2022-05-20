@@ -1,0 +1,22 @@
+# This program allows users to access different recipes by inputting an ingredient of their choice
+
+import requests
+
+def recipe_search(ingredient):
+    app_id = '882ef363'
+    app_key = 'f8285f7096292a529882483745c2d968'
+    result = requests.get('https://api.edamam.com/search?q={}&app_id={}&app_key={}'.format(ingredient, app_id, app_key))
+    data = result.json()
+    return data['hits']
+
+
+def run():
+    ingredient_choice = input("Enter an ingredient: ")
+    results = recipe_search(ingredient_choice)
+    for result in results:
+        recipe = result['recipe']
+        print(recipe['label'])
+        print(recipe['uri'])
+        print()
+run()
+
